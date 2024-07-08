@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "161831532772",
+    "project_id": "react-native-bc194",
+    "storage_bucket": "react-native-bc194.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:161831532772:android:857b6eb495fb11adc914f1",
+        "android_client_info": {
+          "package_name": "com.newapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBkJ-2uk3ai6QgoqwQDyUo3SiJRBXCOBgI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

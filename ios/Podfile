@@ -16,7 +16,13 @@ end
 
 target 'NewApp' do
   config = use_native_modules!
-
+  # Add Firebase pods
+  pod 'Firebase/Analytics'
+  pod 'Firebase', :modular_headers => true
+  pod 'FirebaseCoreInternal', :modular_headers => true
+  pod 'GoogleUtilities', :modular_headers => true
+  pod 'FirebaseCore', :modular_headers => true
+  
   use_react_native!(
     :path => config[:reactNativePath],
     # An absolute path to your application root.
@@ -27,7 +33,6 @@ target 'NewApp' do
     inherit! :complete
     # Pods for testing
   end
-
   post_install do |installer|
     # https://github.com/facebook/react-native/blob/main/packages/react-native/scripts/react_native_pods.rb#L197-L202
     react_native_post_install(
