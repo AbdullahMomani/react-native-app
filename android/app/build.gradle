@@ -2,6 +2,8 @@ apply plugin: "com.android.application"
 apply plugin: "org.jetbrains.kotlin.android"
 apply plugin: "com.facebook.react"
 apply plugin: 'com.google.gms.google-services'
+// apply from: "../../node_modules/react-native/react.gradle"
+apply from: "../../node_modules/react-native-code-push/android/codepush.gradle"
 
 /**
  * This is the configuration block to customize your React Native Android app.
@@ -75,6 +77,18 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
     compileSdk rootProject.ext.compileSdkVersion
 
+    // tasks.withType(com.android.build.gradle.tasks.MergeResources) {
+    //     if (name == "react-native-firebase_analytics:packageDebugResources") {
+    //         mustRunAfter(":react-native-firebase_analytics:generateDebugResValues")
+    //         inputs.file(":react-native-firebase_analytics:generateDebugResValues".outputs.files)
+    //     }
+    // }
+
+    // afterEvaluate {
+    //     tasks.matching { it.name == 'checkDebugAarMetadata' }.all {
+    //         dependsOn tasks.matching { it.name == '@react-native-firebase_analytics:writeDebugAarMetadata' }
+    //     }
+    // }
     namespace "com.newapp"
     defaultConfig {
         applicationId "com.newapp"
@@ -91,6 +105,7 @@ android {
             keyPassword 'android'
         }
     }
+    
     buildTypes {
         debug {
             signingConfig signingConfigs.debug
@@ -108,6 +123,8 @@ android {
 dependencies {
     // The version of react-native is set by the React Native Gradle Plugin
     implementation("com.facebook.react:react-android")
+    // implementation project(path: ":@react-native-firebase_analytics")
+    implementation project(':react-native-code-push')
 
     if (hermesEnabled.toBoolean()) {
         implementation("com.facebook.react:hermes-android")
@@ -117,4 +134,3 @@ dependencies {
 }
 
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
-

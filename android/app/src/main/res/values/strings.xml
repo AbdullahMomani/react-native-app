@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">NewApp</string>
+    <string name="appCenterCrashes_whenToSendCrashes" moduleConfig="true" translatable="false">DO_NOT_ASK_JAVASCRIPT</string>
+    <string name="appCenterAnalytics_whenToEnableAnalytics" moduleConfig="true" translatable="false">ALWAYS_SEND</string>
+    <string name="CodePushDeploymentKey">8yAoE95PmZ_W5Y9iZEAmCEShxFiOYITu48z_g</string>
+    <!-- <string name="reactNativeCodePush_androidDeploymentKey">8yAoE95PmZ_W5Y9iZEAmCEShxFiOYITu48z_g</string> -->
+
 </resources>
+ 

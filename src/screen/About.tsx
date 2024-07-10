@@ -2,14 +2,14 @@
 import React from 'react';
 import { View, Text, StyleSheet, Button } from 'react-native';
 
-const HomePage: React.FC = ({navigation}:any) => {
+const About: React.FC = ({navigation}:any) => {
   const onPress=()=>{
-    navigation.navigate('About')
+    navigation.navigate('Home')
     console.log('navigated')
   }
   return (
     <View style={styles.container}>
-      <Text>Welcome to the Home Page!</Text>
+      <Text>Welcome to the About Page!</Text>
       <Button
   onPress={onPress}
   title="Learn More"
@@ -28,4 +28,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HomePage;
+export default About;

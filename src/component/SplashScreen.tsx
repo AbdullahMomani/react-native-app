@@ -1,51 +1,83 @@
-// src/components/SplashScreen.tsx
-import React, { useEffect } from 'react';
-import { View, StyleSheet } from 'react-native';
-import LottieView from 'lottie-react-native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { RootStackParamList } from '../navigation/AppNavigator';
-import { useNavigation } from '@react-navigation/native';
-
-type SplashScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Splash'>;
+import React, { useState, useEffect } from "react";
+import { Animated, Dimensions, StyleSheet, View,Easing } from "react-native";
+import BootSplash from "react-native-bootsplash";
+import LottieView from "lottie-react-native";
+import Lottie from 'lottie-react-native';
+import SplashScreen from "../component/animated";
 
 type Props = {
-  navigation: SplashScreenNavigationProp;
+  onAnimationEnd: () => void;
 };
 
-const SplashScreen: React.FC<Props> = ({ navigation }) => {
-  const navigate=useNavigation()
-  useEffect(() => {
-    // Perform any actions you need to do when the splash screen is loaded
-  }, []);
+const AnimatedBootSplash: React.FC<Props> = ({ onAnimationEnd }) => {
+  const [opacity] = useState(() => new Animated.Value(1));
+  const [translateY] = useState(() => new Animated.Value(0));
 
-  const handleAnimationFinish = () => {
-    navigation.navigate('Home'); // Navigate to the Home page
-  };
+  const { container } = BootSplash.useHideAnimation({
+    manifest: require("../../assets/bootsplash_manifest.json"),
+    logo: require("../../assets/ClarityLogo.svg"),
+    statusBarTranslucent: true,
+    navigationBarTranslucent: false,
+
+    animate: () => {
+      const { height } = Dimensions.get("window");
+
+      console.log("Starting Animation Sequence"); // Debugging line
+
+      Animated.stagger(250, [
+        Animated.spring(translateY, {
+          useNativeDriver: true,
+          toValue: -50,
+        }),
+        Animated.spring(translateY, {
+          useNativeDriver: true,
+          toValue: height,
+        }),
+      ]).start();
+
+      Animated.timing(opacity, {
+        useNativeDriver: true,
+        toValue: 0,
+        duration: 150,
+        delay: 350,
+      }).start(() => {
+        console.log("Animation Completed"); // Debugging line
+        onAnimationEnd();
+      });
+    },
+  });
+
+  const AnimatedLottie = Animated.createAnimatedComponent(LottieView);
 
   return (
-    <View style={styles.container}>
-      <LottieView
-        source={require('../../assets/animation/LottieLego.json')}
-        autoPlay
-        loop={false}
-        onAnimationFinish={handleAnimationFinish}
-        style={styles.animation}
-      />
-    </View>
+    <Animated.View style={[styles.container, { opacity }]}>
+      <Animated.View {...container} style={styles.lottie}>
+        <AnimatedLottie
+          source={require('../../assets/animation/LottieLego.json')}
+          autoPlay
+          loop={true}
+          onAnimationFinish={() => console.log("Lottie Animation Finished")} // Debugging line
+          style={styles.lottie}
+        />
+      </Animated.View>
+    </Animated.View>
   );
 };
+
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#fff', // Background color for the splash screen
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#fff", 
+    position:"absolute"
+    // Adjust according to your design
   },
-  animation: {
-    width: 200,
-    height: 200,
+  lottie: {
+    width: 200, // Adjust according to your design
+    height: 200, // Adjust according to your design
   },
 });
 
-export default SplashScreen;
+export default AnimatedBootSplash;
